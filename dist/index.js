@@ -7,10 +7,16 @@ const main = async () => {
     const orm = await core_1.MikroORM.init({
         entities: [Post_1.Post],
         dbName: "red",
+        type: "postgresql",
         user: "postgres",
+        port: 5433,
         password: "password123",
         debug: !constants_1.__prod__,
     });
+    const post = orm.em.create(Post_1.Post, {
+        title: "First post",
+    });
+    await orm.em.persistAndFlush(post);
 };
 main();
 console.log("Hello world");
